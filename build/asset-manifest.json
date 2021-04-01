@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5df4f678.chunk.css",
+    "main.js": "/static/js/main.3cf465f5.chunk.js",
+    "main.js.map": "/static/js/main.3cf465f5.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.5fa2bfeb.js",
+    "runtime-main.js.map": "/static/js/runtime-main.5fa2bfeb.js.map",
+    "static/js/2.e65ceda8.chunk.js": "/static/js/2.e65ceda8.chunk.js",
+    "static/js/2.e65ceda8.chunk.js.map": "/static/js/2.e65ceda8.chunk.js.map",
+    "static/js/3.37cbd432.chunk.js": "/static/js/3.37cbd432.chunk.js",
+    "static/js/3.37cbd432.chunk.js.map": "/static/js/3.37cbd432.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.5df4f678.chunk.css.map": "/static/css/main.5df4f678.chunk.css.map",
+    "static/js/2.e65ceda8.chunk.js.LICENSE.txt": "/static/js/2.e65ceda8.chunk.js.LICENSE.txt",
+    "static/media/20109-PWS-SAAS-login-scam-300x255.7d161304.jpg": "/static/media/20109-PWS-SAAS-login-scam-300x255.7d161304.jpg",
+    "static/media/D650-login-cc-300x255.8741b25e.jpg": "/static/media/D650-login-cc-300x255.8741b25e.jpg",
+    "static/media/D650-login-seckey-300x255.aa4e9c56.jpg": "/static/media/D650-login-seckey-300x255.aa4e9c56.jpg",
+    "static/media/protecting-your-money.21cac829.jpg": "/static/media/protecting-your-money.21cac829.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5fa2bfeb.js",
+    "static/js/2.e65ceda8.chunk.js",
+    "static/css/main.5df4f678.chunk.css",
+    "static/js/main.3cf465f5.chunk.js"
+  ]
+}
