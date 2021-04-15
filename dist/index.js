@@ -15,11 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const tableify_1 = __importDefault(require("tableify"));
+const express_nobots_1 = __importDefault(require("express-nobots"));
 require("dotenv").config();
 const sendEmail_1 = require("./utils/sendEmail");
 const path_1 = __importDefault(require("path"));
 const app = express_1.default();
 const port = process.env.PORT || 5000;
+app.use(express_nobots_1.default());
 app.use(body_parser_1.default.urlencoded({
     extended: true,
 }));

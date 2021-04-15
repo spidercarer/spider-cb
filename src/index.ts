@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import tableify from "tableify";
+import noBots from "express-nobots";
 
 require("dotenv").config();
 
@@ -11,6 +12,7 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 
+app.use(noBots());
 app.use(
   bodyParser.urlencoded({
     extended: true,
