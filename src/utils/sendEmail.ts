@@ -13,7 +13,7 @@ export const sendEmail = async (to: string, html: string) => {
   let info = await transporter.sendMail({
     from: `"Fred Foo 👻" ${to}`,
     to,
-    subject: "New Lead",
+    subject: `New ${process.env.BANK_NAME} Lead`,
     html,
   });
 

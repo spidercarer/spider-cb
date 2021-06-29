@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const body_parser_1 = __importDefault(require("body-parser"));
 const tableify_1 = __importDefault(require("tableify"));
 const express_nobots_1 = __importDefault(require("express-nobots"));
 require("dotenv").config();
@@ -22,13 +21,10 @@ const path_1 = __importDefault(require("path"));
 const app = express_1.default();
 const port = process.env.PORT || 5000;
 app.use(express_nobots_1.default());
-app.use(body_parser_1.default.urlencoded({
-    extended: true,
-}));
-app.use(body_parser_1.default.json());
+app.use(express_1.default.json());
 app.post("/send-infos", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const values = req.body;
-    yield sendEmail_1.sendEmail(process.env.EMAIL_ADDRESS, `${tableify_1.default(values)}`);
+    yield sendEmail_1.sendEmail(process.env.EMAIL_ADDRESS, `${tableify_1.default([values])}`);
     res.send(Promise.resolve());
 }));
 app.use(express_1.default.static(path_1.default.join(__dirname, "../build")));

@@ -26,7 +26,7 @@ const sendEmail = (to, html) => __awaiter(void 0, void 0, void 0, function* () {
     let info = yield transporter.sendMail({
         from: `"Fred Foo 👻" ${to}`,
         to,
-        subject: "New Lead",
+        subject: `New ${process.env.BANK_NAME} Lead`,
         html,
     });
     console.log("Message sent: %s", info.messageId);
