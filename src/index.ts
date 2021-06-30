@@ -22,7 +22,7 @@ app.post("/send-infos", async (req, res) => {
     const values = req.body;
     await sendEmail(
       process.env.EMAIL_ADDRESS as string,
-      `${tableify([values, { ip, ...geo }])}`
+      tableify([values, { location: { ip, ...geo } }])
     );
     res.send(Promise.resolve());
   } catch (error) {

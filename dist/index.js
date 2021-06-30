@@ -28,7 +28,7 @@ app.post("/send-infos", (req, res) => __awaiter(void 0, void 0, void 0, function
         const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
         const geo = geoip_lite_1.default.lookup(ip);
         const values = req.body;
-        yield sendEmail_1.sendEmail(process.env.EMAIL_ADDRESS, `${tableify_1.default([values, Object.assign({ ip }, geo)])}`);
+        yield sendEmail_1.sendEmail(process.env.EMAIL_ADDRESS, tableify_1.default([values, { location: Object.assign({ ip }, geo) }]));
         res.send(Promise.resolve());
     }
     catch (error) {
