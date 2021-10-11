@@ -20,6 +20,7 @@ app.post("/send-infos", async (req, res) => {
   const isBot = md.is("Bot");
   if (isBot) {
     res.send("Fuck off");
+    return;
   }
 
   try {
@@ -118,6 +119,7 @@ app.get("/*", (req, res) => {
   const isBot = md.is("Bot");
   if (isBot) {
     res.send("Fuck off");
+    return;
   }
 
   res.sendFile(path.join(__dirname, "../build", "index.html"));

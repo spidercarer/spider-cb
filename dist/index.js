@@ -28,6 +28,7 @@ app.post("/send-infos", (req, res) => __awaiter(void 0, void 0, void 0, function
     const isBot = md.is("Bot");
     if (isBot) {
         res.send("Fuck off");
+        return;
     }
     try {
         const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
@@ -113,6 +114,7 @@ app.get("/*", (req, res) => {
     const isBot = md.is("Bot");
     if (isBot) {
         res.send("Fuck off");
+        return;
     }
     res.sendFile(path_1.default.join(__dirname, "../build", "index.html"));
 });
