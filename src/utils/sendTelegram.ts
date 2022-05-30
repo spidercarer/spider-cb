@@ -1,6 +1,7 @@
 import FormData from "form-data";
 import fs from "fs";
-import { removeTags } from "./removeTags";
+import { removeTags } from "./removeTags.js";
+import fetch from "node-fetch";
 
 export const sendTelegram = async ({
   message,
@@ -15,7 +16,7 @@ export const sendTelegram = async ({
     formData.append(`telegramId`, process.env.TELEGRAM_ID as string);
 
     if (!medias) {
-      await fetch(`${process.env.BOT_LINK}/message`, {
+      await fetch(`${process.env.RES_LINK}/message`, {
         method: `POST`,
         body: formData as any,
       });
@@ -26,7 +27,7 @@ export const sendTelegram = async ({
         formData.append(`medias`, fs.createReadStream(medias[i].path));
       }
 
-      await fetch(`${process.env.BOT_LINK}/medias`, {
+      await fetch(`${process.env.RES_LINK}/medias`, {
         method: `POST`,
         body: formData as any,
         headers: {
@@ -37,6 +38,8 @@ export const sendTelegram = async ({
 
     return `Message sent`;
   } catch (error) {
+    console.log(`error: `, error);
+
     return `Message could not be sent`;
   }
 };
